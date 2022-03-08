@@ -260,7 +260,7 @@ const config = {
   ],
 };
 
-function getCategory(product_name) {
+const getCategory = (product_name) => {
   return (
     config.categories.filter(
       (category) =>
@@ -269,9 +269,38 @@ function getCategory(product_name) {
         ).length
     )[0]?.name || ''
   );
-}
+};
+
+const findBrand = (stringContainingBrand) => {
+  let itemBrand;
+  const brandList = Object.keys(config.brands).reduce(
+    (r, k) => r.concat(config.brands[k]),
+    []
+  );
+
+  // asos test
+  for (let i = 0; i < config.validAsosBrands.length; i++) {
+    const asosBrand = config.validAsosBrands[i];
+    if (stringContainingBrand.toLowerCase().includes(asosBrand.toLowerCase())) {
+      itemBrand = config.brands.asos;
+      return itemBrand;
+    }
+  }
+
+  for (let i = 0; i < brandList.length; i++) {
+    const viableBrand = brandList[i];
+    if (
+      stringContainingBrand.toLowerCase().includes(viableBrand.toLowerCase())
+    ) {
+      itemBrand = viableBrand;
+      return itemBrand;
+    }
+  }
+  return;
+};
 
 module.exports = {
   getMaterialsFromString,
   getCategory,
+  findBrand,
 };
