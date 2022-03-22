@@ -49,7 +49,7 @@ describe('Zara tests', () => {
               // Size example
               sizeExample = document
                 .querySelector('.product-detail-size-info')
-                .textContent.trim();
+                .textContent.replace('Similar products', '');.trim();
 
               // Materials
               materials = document.querySelector(
